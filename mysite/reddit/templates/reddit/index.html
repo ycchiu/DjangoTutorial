@@ -4,7 +4,13 @@
     {% if links %}
         <ul>
         {% for link in links %}
-            <li><a href="{{link.url}}" target="_blank">{{ link.title_text }}</a></li>
+            <li>
+                <a href="{{link.url}}" target="_blank">{{ link.title_text }}</a>
+                <space><space>
+                <a href="{% url 'reddit.views.link_edit' pk=link.pk %}"> (edit)</a>
+                <space><space>
+                <a href="{% url 'reddit.views.link_delete' pk=link.pk %}"> (delete)</a>
+            </li>
         {% endfor %}
         </ul>
     {% else %}
