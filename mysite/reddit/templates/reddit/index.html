@@ -1,6 +1,7 @@
 {% extends 'reddit/base.html' %}
 
 {% block content %}
+    <p>List of links:</p>
     {% if links %}
         <ul>
         {% for link in links %}
@@ -15,5 +16,13 @@
         </ul>
     {% else %}
         <p>No links are available.</p>
+    {% endif %}
+
+    {% if user.is_authenticated %}
+        <p>New Link</p>
+        <form method="POST" class="post-form">{% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" class="save btn btn-default">Save</button>
+        </form>
     {% endif %}
 {% endblock content %}

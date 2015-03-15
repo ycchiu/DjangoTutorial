@@ -7,7 +7,8 @@ from reddit.models import Link
 
 def link_list(request):
     links = Link.objects.filter(url__isnull=False).order_by('title_text')
-    return render(request, 'reddit/index.html', {'links':links})
+    form = PostForm() 
+    return render(request, 'reddit/index.html', {'links':links, 'form':form})
 
 @login_required
 def link_new(request):
@@ -44,4 +45,3 @@ def link_delete(request, pk):
     links = Link.objects.filter(url__isnull=False).order_by('title_text')
     return render(request, 'reddit/index.html', {'links':links})
 
-    
