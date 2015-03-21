@@ -1,17 +1,18 @@
 {% extends 'reddit/base.html' %}
 
 {% block content %}
-    <p>List of links:</p>
     {% if links %}
         <ul>
         {% for link in links %}
-            <li>
-                <a href="{{link.url}}" target="_blank">{{ link.title_text }}</a>
+            <p> 
+                <h3><a href="{{link.url}}" target="_blank">{{ link.title_text }}</a></h3>
+                {% if user.is_authenticated %}
                 <space><space>
                 <a href="{% url 'reddit.views.link_edit' pk=link.pk %}"> (edit)</a>
                 <space><space>
                 <a href="{% url 'reddit.views.link_delete' pk=link.pk %}"> (delete)</a>
-            </li>
+                {% endif %}
+            </p>
         {% endfor %}
         </ul>
     {% else %}
@@ -20,9 +21,9 @@
 
     {% if user.is_authenticated %}
         <p>New Link</p>
-        <form method="POST" class="post-form">{% csrf_token %}
+        <form method="POST" class="post-form">
         {{ form.as_p }}
-        <button type="submit" class="save btn btn-default">Save</button>
+        <a class="btn btn-default" href="{% url 'reddit.views.link_new' %}">Add</a>
         </form>
     {% endif %}
 {% endblock content %}
