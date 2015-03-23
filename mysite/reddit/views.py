@@ -16,6 +16,7 @@ def link_new(request):
         form = PostForm(request.POST)
         if form.is_valid():
             link = form.save(commit=False)
+            link.author = request.user
             link.save()
         links = Link.objects.filter(url__isnull=False).order_by('title_text')
         return render(request, 'reddit/index.html', {'links':links})
@@ -29,7 +30,8 @@ def link_edit(request, pk):
     if request.method == "POST":
         form = PostForm(request.POST, instance=link)
         if form.is_valid():
-            post = form.save(commit=False)
+            link = form.save(commit=False)
+            link.author = request.user
             link.save()
         links = Link.objects.filter(url__isnull=False).order_by('title_text')
         return render(request, 'reddit/index.html', {'links':links})
@@ -41,7 +43,25 @@ def link_edit(request, pk):
 @login_required
 def link_delete(request, pk):
     link = get_object_or_404(Link, pk=pk)
-    link.delete()
+    if request.user.username == link.author.username:
+        link.delete()
+
     links = Link.objects.filter(url__isnull=False).order_by('title_text')
     return render(request, 'reddit/index.html', {'links':links})
+
+def upvote(request, pk):
+    link = get_object_or_404(Link, pk=pk)
+    link.upvote += 1
+    link.save()
+    links = Link.objects.filter(url__isnull=False).order_by('title_text')
+    return render(request, 'reddit/index.html', {'links':links})
+
+def downvote(request, pk):
+    link = get_object_or_404(Link, pk=pk)
+    link.downvote += 1
+    link.save();
+    links = Link.objects.filter(url__isnull=False).order_by('title_text')
+    return render(request, 'reddit/index.html', {'links':links})
+
+
 

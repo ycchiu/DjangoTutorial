@@ -19,14 +19,16 @@
     <body>
         <div class="page-header">
             <h2><a href="{% url 'reddit.views.link_list' %}">Reddit</a></h2>
-
-            {% if user.is_authenticated %}
-                <a href="{% url 'reddit.views.link_new' %}" class="top-menu"><span class="glyphicon glyphicon-pencil"></span></a>
-                <a href="{% url 'django.contrib.auth.views.logout' %}" class="top-menu"><span class="glyphicon glyphicon-log-out"></span></a>
-                <p class="top-menu">Hello {{ user.username }} </p> 
-            {% else %}
-                <a href ="{% url 'django.contrib.auth.views.login' %}" class ="top-menu"><span class="glyphicon glyphicon-cog"></span>Login</a>
-            {% endif %}
+            
+            <div class="login-section">
+                {% if user.is_authenticated %}
+                    <a href="{% url 'reddit.views.link_new' %}" class="top-menu"><span class="glyphicon glyphicon-pencil"></span></a>
+                    <a href="{% url 'django.contrib.auth.views.logout' %}" class="top-menu"><span class="glyphicon glyphicon-log-out"></span></a>
+                    <p class="top-menu">Hello {{ user.username }} </p> 
+                {% else %}
+                    <a href ="{% url 'django.contrib.auth.views.login' %}" class ="top-menu"><span class="glyphicon glyphicon-cog"></span>Login</a>
+                {% endif %}
+            </div>
         </div>
 
         <div class="content-container">

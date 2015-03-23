@@ -1,5 +1,6 @@
 .page-header {
     background-color: #3399FF;
+    color: #FFFFFF;
     margin-top: 0;
     padding: 20px 20px 20px 40px;
 }
@@ -7,6 +8,10 @@
 .page-header h2 a{
     color: #FFFFFF;
     text-decoration: none;
+}
+
+.login-section {
+    text-align: right;
 }
 
 .content-container a:link, a:visited, a:hover, a:active {

@@ -6,11 +6,13 @@
         {% for link in links %}
             <p> 
                 <h3><a href="{{link.url}}" target="_blank">{{ link.title_text }}</a></h3>
-                {% if user.is_authenticated %}
-                <space><space>
-                <a href="{% url 'reddit.views.link_edit' pk=link.pk %}"> (edit)</a>
-                <space><space>
-                <a href="{% url 'reddit.views.link_delete' pk=link.pk %}"> (delete)</a>
+                posted by <author>{{ link.author.username }} </author> </br>
+                <a href="{% url 'reddit.views.upvote' pk=link.pk %}">like</a>: {{ link.upvote }} |  
+                <a href="{% url 'reddit.views.downvote' pk=link.pk %}">dislike</a>: {{ link.downvote }}
+
+                {% if user.is_authenticated and user.username == link.author.username %}
+                    <a href="{% url 'reddit.views.link_edit' pk=link.pk %}"> (edit)</a>
+                    <a href="{% url 'reddit.views.link_delete' pk=link.pk %}"> (delete)</a>
                 {% endif %}
             </p>
         {% endfor %}
