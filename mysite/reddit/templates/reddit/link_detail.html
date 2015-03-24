@@ -1,0 +1,23 @@
+{% extends 'reddit/base.html' %}
+
+{% block content %}
+    <h3><a href="{% url 'reddit.views.link_detail' pk=link.pk %}">{{ link.title_text }}</a></h3>
+    posted by <author>{{ link.author.username }} </author> </br>
+    <a href="{{link.url}}" target="_blank">visit link</a>
+    <a href="{% url 'reddit.views.upvote' pk=link.pk %}">like</a>: {{ link.upvote }} |  
+    <a href="{% url 'reddit.views.downvote' pk=link.pk %}">dislike</a>: {{ link.downvote }}
+
+    {% if user.is_authenticated and user.username == link.author.username %}
+        <a href="{% url 'reddit.views.link_edit' pk=link.pk %}"> (edit)</a>
+        <a href="{% url 'reddit.views.link_delete' pk=link.pk %}"> (delete)</a>
+    {% endif %}
+    
+    <div>
+        <h3>Comment</h3>
+        <li>
+            
+        </li>
+    </div>
+
+
+{% endblock content %}

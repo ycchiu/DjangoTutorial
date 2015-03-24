@@ -10,6 +10,10 @@ def link_list(request):
     form = PostForm() 
     return render(request, 'reddit/index.html', {'links':links, 'form':form})
 
+def link_detail(request, pk):
+    link = get_object_or_404(Link, pk=pk)
+    return render(request, 'reddit/link_detail.html', {'link':link})
+
 @login_required
 def link_new(request):
     if request.method == "POST":

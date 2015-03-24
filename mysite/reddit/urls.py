@@ -5,6 +5,7 @@ from reddit import views
 urlpatterns = patterns('',
     url(r'^$', views.link_list, name='index'),
     url(r'^reddit/new/$', views.link_new, name='link_new'),
+    url(r'^reddit/(?P<pk>\d+)/detail/$', views.link_detail, name='link_detail'),
     url(r'^reddit/(?P<pk>\d+)/edit/$', views.link_edit, name='link_edit'),
     url(r'^reddit/(?P<pk>\d+)/remove/$', views.link_delete, name='link_delete'),
     url(r'^reddit/(?P<pk>\d+)/upvote/$', views.upvote, name='upvote'),
