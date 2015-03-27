@@ -17,3 +17,7 @@
 .content-container a:link, a:visited, a:hover, a:active {
     text-decoration: none;
 }
+
+.comment_block{
+    padding: 20px 20px 20px 40px;
+}

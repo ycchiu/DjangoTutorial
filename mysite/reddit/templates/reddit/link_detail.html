@@ -11,12 +11,23 @@
         <a href="{% url 'reddit.views.link_edit' pk=link.pk %}"> (edit)</a>
         <a href="{% url 'reddit.views.link_delete' pk=link.pk %}"> (delete)</a>
     {% endif %}
+
+    <div class="comment_input">
+        <form method="POST" action="{% url 'reddit.views.comment_add' pk=link.pk %}">
+            <input type = "text" name="comment_body">
+            <input type = "submit" value="Submit">
+        </form>
+    </div>
     
-    <div>
+    <div class = "comment_block">
         <h3>Comment</h3>
-        <li>
-            
-        </li>
+        {% for comment in comments %}
+            <li>
+                <p>{{ comment.content_text }}<br>
+                Posted by <author> {{ comment.author.username }}</author> at {{ comment.post_date }}
+                </p>
+            </li>
+        {% endfor %}
     </div>
 
 

@@ -3,7 +3,7 @@ from django.contrib.auth.decorators import login_required
 from django.views import generic
 from .form import PostForm
 
-from reddit.models import Link
+from reddit.models import Link, Comment
 
 def link_list(request):
     links = Link.objects.filter(url__isnull=False).order_by('title_text')
@@ -12,7 +12,8 @@ def link_list(request):
 
 def link_detail(request, pk):
     link = get_object_or_404(Link, pk=pk)
-    return render(request, 'reddit/link_detail.html', {'link':link})
+    comments = Comment.objects.filter(link=link.pk).order_by('pub_date')
+    return render(request, 'reddit/link_detail.html', {'link':link, 'comments':comments})
 
 @login_required
 def link_new(request):
