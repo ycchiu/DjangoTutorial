@@ -10,4 +10,5 @@ urlpatterns = patterns('',
     url(r'^reddit/(?P<pk>\d+)/remove/$', views.link_delete, name='link_delete'),
     url(r'^reddit/(?P<pk>\d+)/upvote/$', views.upvote, name='upvote'),
     url(r'^reddit/(?P<pk>\d+)/downvote/$', views.downvote, name='downvote'),
+    url(r'^reddit/(?P<pk>\d+)/comment/$', views.comment_add, name='comment_add'),
 )

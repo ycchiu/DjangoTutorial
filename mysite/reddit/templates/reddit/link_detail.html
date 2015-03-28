@@ -12,13 +12,6 @@
         <a href="{% url 'reddit.views.link_delete' pk=link.pk %}"> (delete)</a>
     {% endif %}
 
-    <div class="comment_input">
-        <form method="POST" action="{% url 'reddit.views.comment_add' pk=link.pk %}">
-            <input type = "text" name="comment_body">
-            <input type = "submit" value="Submit">
-        </form>
-    </div>
-    
     <div class = "comment_block">
         <h3>Comment</h3>
         {% for comment in comments %}
@@ -28,6 +21,14 @@
                 </p>
             </li>
         {% endfor %}
+
+        <div class="comment_input">
+            <form method="POST" action="{% url 'reddit.views.comment_add' pk=link.pk %}">
+                {% csrf_token %}
+                {{ form.as_p }}
+                <input type = "submit" value="Comment">
+            </form>
+        </div>
     </div>
 
 
